@@ -1,3 +1,6 @@
+using EFTest.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContextPool<SchoolContext>(opt =>
+    opt.UseNpgsql(
+        builder.Configuration.GetConnectionString("PostgresDatabase"),
+        o => o
+            .SetPostgresVersion(16, 0)
+            .UseNodaTime()));
 
 var app = builder.Build();
 

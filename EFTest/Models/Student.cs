@@ -1,5 +1,8 @@
-﻿namespace EFTest.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EFTest.Models
 {
+    [Table("Student")]
     public class Student
     {
         public string Id { get; set; }
