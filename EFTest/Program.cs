@@ -1,4 +1,5 @@
 using EFTest.Models;
+using EFTest.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,14 @@ builder.Services.AddDbContextPool<SchoolContext>(opt =>
         o => o
             .SetPostgresVersion(16, 0)
             .UseNodaTime()));
+
+var dbService = new DatabaseService(
+    builder.Configuration.GetSection("AppSettings").GetValue<bool>("HasInitData"),
+    builder.Configuration.GetSection("AppSettings").GetValue<int>("InitDataCount"),
+    builder.Configuration.GetConnectionString("PostgresDatabase") ?? "");
+await dbService.Initialization();
+
+builder.Services.AddSingleton<DatabaseService>(dbService);
 
 var app = builder.Build();
 

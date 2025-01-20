@@ -13,6 +13,7 @@ namespace EFTest.Controllers
         }
 
         [Route("/school/add/{name}")]
+        [HttpGet]
         [HttpPost]
         public async Task<School> AddSchool(string name)
         {
@@ -29,5 +30,10 @@ namespace EFTest.Controllers
 
             return school;
         }
+
+        [Route("/school/search/{name}")]
+        [HttpGet]
+        public School SearchSchool(string name)
+            => _context.Schools.FirstOrDefault(s => s.Name == name) ?? new School();
     }
 }
