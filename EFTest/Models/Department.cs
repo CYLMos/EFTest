@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace EFTest.Models
 {
@@ -13,6 +14,7 @@ namespace EFTest.Models
 
         public string SchoolId { get; set; }
 
+        [JsonIgnore]
         public List<Staff> Staffs { get; set; } = new List<Staff>();
     }
 }
