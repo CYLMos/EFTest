@@ -34,6 +34,9 @@ namespace EFTest.Models
                 .HasForeignKey(e => e.DepartmentId)
                 .IsRequired();
 
+            modelBuilder.Entity<Department>()
+                .HasIndex(e => e.SchoolId);
+
             modelBuilder.Entity<Class>()
                 .HasMany(e => e.Staffs)
                 .WithOne()
@@ -45,6 +48,15 @@ namespace EFTest.Models
                 .WithOne()
                 .HasForeignKey(e => e.ClassId)
                 .IsRequired();
+
+            modelBuilder.Entity<Class>()
+                .HasIndex(e => new { e.SchoolId, e.Name });
+
+            modelBuilder.Entity<Staff>()
+                .HasIndex(e => new { e.DepartmentId, e.ClassId, e.Name });
+
+            modelBuilder.Entity<Student>()
+                .HasIndex(e => new { e.ClassId, e.Name });
 
             base.OnModelCreating(modelBuilder);
         }
