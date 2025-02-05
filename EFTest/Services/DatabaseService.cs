@@ -58,7 +58,7 @@ namespace EFTest.Services
                 command.Parameters.Clear();
                 command.Parameters.AddWithValue("@Id", school.Id);
                 command.Parameters.AddWithValue("@Name", school.Name);
-                command.Parameters.AddWithValue("@Address", school.Phone);
+                command.Parameters.AddWithValue("@Address", school.Address);
                 command.Parameters.AddWithValue("@Phone", school.Phone);
 
                 await command.ExecuteNonQueryAsync();
